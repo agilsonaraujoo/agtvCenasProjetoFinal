@@ -12,6 +12,7 @@ const NewSubscriptionPopup = () => {
   const [progress, setProgress] = useState(100);
   const [isAnimating, setIsAnimating] = useState(false);
   const [showNotifications, setShowNotifications] = useState(true);
+  const [shownNames, setShownNames] = useState(new Set());
 
   useEffect(() => {
     // Atualiza o estado das notificações quando mudar no localStorage
@@ -25,7 +26,16 @@ const NewSubscriptionPopup = () => {
   const showNextNotification = () => {
     if (!showNotifications) return;
     
+    // Verifica se o nome já foi mostrado
     const newSubscription = getNewSubscription();
+    if (shownNames.has(newSubscription.name)) {
+      // Se já foi mostrado, pula para a próxima notificação
+      setTimeout(showNextNotification, 1000);
+      return;
+    }
+    
+    // Adiciona o nome à lista de mostrados
+    setShownNames(prev => new Set([...prev, newSubscription.name]));
     setSubscription(newSubscription);
     setShowPopup(true);
     setIsHiding(false);
@@ -70,7 +80,7 @@ const NewSubscriptionPopup = () => {
         setTimeout(() => {
           setShowPopup(false);
           // Espera mais 6 segundos antes de mostrar a próxima notificação
-          setTimeout(showNextNotification, 18000);
+          setTimeout(showNextNotification, 30000); // Aumentando para 30 segundos
         }, 3000);
       }, 10000); // Tempo total (10 segundos)
 
@@ -120,8 +130,12 @@ const NewSubscriptionPopup = () => {
   if (!showPopup || !subscription) return null;
 
   const handleClose = () => {
+    // Desabilita as notificações permanentemente
     setShowNotifications(false);
     localStorage.setItem('showNotifications', 'false');
+    
+    // Remove o nome da lista de mostrados
+    setShownNames(new Set());
     setIsHiding(true);
     // Espera 3 segundos para a animação de saída
     setTimeout(() => {

@@ -35,9 +35,33 @@
 }
 
 .plan-card {
-  transition: all 0.3s ease-in-out;
+  transform-origin: center;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .plan-card:hover {
   transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.plan-card:hover .text-indigo-400 {
+  color: #6366f1;
+  transition: color 0.3s ease;
+}
+
+.plan-card:hover h3 {
+  color: #6366f1;
+  transition: color 0.3s ease;
+}
+
+.plan-card:hover .text-white {
+  color: #ffffff;
+  transition: color 0.3s ease;
+}
+
+.plan-card:hover .text-gray-300,
+.plan-card:hover .text-gray-400 {
+  color: rgba(255, 255, 255, 0.9);
+  transition: color 0.3s ease;
 }
