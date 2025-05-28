@@ -1,0 +1,7 @@
+﻿InstruÃ§Ãµes para limpar cache do WhatsApp:
+
+1. Abra o WhatsApp
+2. VÃ¡ em ConfiguraÃ§Ãµes > Dados e Armazenamento
+3. Toque em "Limpar Cache"
+4. Aguarde alguns minutos
+5. Teste compartilhando o link novamente

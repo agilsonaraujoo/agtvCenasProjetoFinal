@@ -1,0 +1,14 @@
+﻿InstruÃ§Ãµes Simples de Deploy para HostGator:
+
+1. FaÃ§a login no seu painel de controle do HostGator
+2. Procure por "File Manager" (Gerenciador de Arquivos)
+3. Navegue atÃ© a pasta public_html (ou o diretÃ³rio do seu domÃ­nio)
+4. FaÃ§a upload do arquivo "deploy-hostgator.zip"
+5. Extraia o arquivo zip na pasta correta
+6. Limpe o cache do navegador
+7. Acesse seu site para verificar se estÃ¡ funcionando
+
+Arquivos importantes:
+- index.html (pÃ¡gina principal)
+- static/ (pasta com css, js e mÃ­dia)
+- .htaccess (necessÃ¡rio para o React Router)

@@ -1,0 +1,21 @@
+﻿InstruÃ§Ãµes de Deploy para HostGator:
+
+1. FaÃ§a login no seu painel de controle do HostGator
+2. Procure por "File Manager" (Gerenciador de Arquivos)
+3. Navegue atÃ© a pasta public_html (ou o diretÃ³rio do seu domÃ­nio)
+4. FaÃ§a upload do arquivo "deploy-hostgator.zip"
+5. Extraia o arquivo zip na pasta correta
+6. Verifique se o arquivo [.htaccess](cci:7://file:///a:/ProjetoAgtvCenas/.htaccess:0:0-0:0) estÃ¡ na raiz do domÃ­nio
+7. Limpe o cache do navegador
+8. Acesse seu site para verificar se estÃ¡ funcionando
+
+Arquivos importantes:
+- index.html (pÃ¡gina principal)
+- static/ (pasta com css, js e mÃ­dia)
+- .htaccess (necessÃ¡rio para o React Router)
+
+Se o site nÃ£o estiver funcionando:
+1. Verifique se o arquivo [.htaccess](cci:7://file:///a:/ProjetoAgtvCenas/.htaccess:0:0-0:0) estÃ¡ na raiz do domÃ­nio
+2. Verifique se todos os arquivos da pasta static/ foram extraÃ­dos corretamente
+3. Limpe o cache do navegador
+4. Verifique se o servidor tem suporte a mod_rewrite
