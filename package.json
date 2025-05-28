@@ -17,7 +17,25 @@
     "start": "set PORT=3001 && react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "audit": "npm audit",
+    "audit:fix": "npm audit fix",
+    "audit:fix:force": "npm audit fix --force"
+  },
+  "security": {
+    "strict": true,
+    "dependencies": {
+      "check": true,
+      "fix": true,
+      "force": false
+    }
+  },
+  "config": {
+    "strict": true,
+    "allow": {
+      "unsafe-inline": true,
+      "unsafe-eval": true
+    }
   },
   "eslintConfig": {
     "extends": [

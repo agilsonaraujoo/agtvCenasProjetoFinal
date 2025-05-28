@@ -1,0 +1,141 @@
+User-agent: *
+Crawl-delay: 10
+
+# Bloqueia arquivos sensíveis
+Disallow: /node_modules/
+Disallow: /src/
+Disallow: /build/
+Disallow: /config/
+Disallow: /test/
+Disallow: /coverage/
+Disallow: /dist/
+Disallow: /temp/
+Disallow: /cache/
+Disallow: /logs/
+Disallow: /backup/
+Disallow: /admin/
+Disallow: /api/
+Disallow: /database/
+Disallow: /vendor/
+Disallow: /composer.json
+Disallow: /composer.lock
+Disallow: /yarn.lock
+Disallow: /pnpm-lock.yaml
+Disallow: /pnpm-store/
+Disallow: /pnpm-workspace.yaml
+Disallow: /.env
+Disallow: /.env.*
+Disallow: /package.json
+Disallow: /package-lock.json
+Disallow: /README.md
+Disallow: /LICENSE
+Disallow: /CHANGELOG.md
+Disallow: /CONTRIBUTING.md
+Disallow: /SECURITY.md
+Disallow: /CODE_OF_CONDUCT.md
+Disallow: /CNAME
+
+# Bloqueia arquivos de configuração
+Disallow: /config/
+Disallow: /settings/
+Disallow: /setup/
+Disallow: /install/
+
+# Bloqueia arquivos de log
+Disallow: /log/
+Disallow: /logs/
+Disallow: /error_log
+Disallow: /access_log
+
+# Bloqueia arquivos de backup
+Disallow: /backup/
+Disallow: /backups/
+Disallow: /dump/
+Disallow: /sql/
+
+# Bloqueia arquivos temporários
+Disallow: /tmp/
+Disallow: /temp/
+Disallow: /cache/
+
+# Bloqueia arquivos de desenvolvimento
+Disallow: /dev/
+Disallow: /development/
+Disallow: /debug/
+
+# Bloqueia arquivos de teste
+Disallow: /test/
+Disallow: /testing/
+
+# Bloqueia arquivos de deploy
+Disallow: /deploy/
+Disallow: /deployment/
+Disallow: /deploy-hostgator.ps1
+Disallow: /deploy-simples.ps1
+Disallow: /deploy.ps1
+
+# Bloqueia arquivos de configuração do editor
+Disallow: /.vscode/
+Disallow: /.editorconfig
+Disallow: /.eslintrc
+Disallow: /.prettierrc
+
+# Bloqueia arquivos de cache
+Disallow: /cache/
+Disallow: /cdn/
+Disallow: /cdn-cgi/
+
+# Bloqueia arquivos de mídia privados
+Disallow: /private/
+Disallow: /protected/
+
+# Permite o conteúdo principal
+Allow: /
+Allow: /index.html
+Allow: /static/
+Allow: /favicon.ico
+Allow: /manifest.json
+Allow: /service-worker.js
+
+# Sitemap
+Sitemap: https://www.agtvcenas.com/sitemap.xml
+
+# Rate limiting
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
+
+User-agent: Baiduspider
+Disallow: /
+
+User-agent: Sogou
+Disallow: /
+
+User-agent: 360Spider
+Disallow: /
+
+User-agent: Sosospider
+Disallow: /
+
+User-agent: YisouSpider
+Disallow: /
+
+User-agent: EasouSpider
+Disallow: /
+
+User-agent: HaosouSpider
+Disallow: /
+
+User-agent: Sosospider
+Disallow: /
+
+User-agent: YandexBot
+Disallow: /
