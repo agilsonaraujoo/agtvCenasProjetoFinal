@@ -30,7 +30,7 @@ const RecommendationEngine = () => {
     try {
       // Chamada para a API Gemini
       let chatHistory = [];
-      const prompt = `Dada a preferência do usuário: "${preference}", sugira 3-5 títulos de filmes ou séries que estariam disponíveis em um grande catálogo de IPTV. Para cada sugestão, forneça um 'title' (título), 'genre' (gênero) e uma 'shortDescription' (breve descrição). Responda apenas com um array JSON desses objetos.`;
+      const prompt = `Dada a preferência do usuário: "${preference}", sugira 3-5 títulos de filmes ou séries que estariam disponíveis no catálogo da AGTV. Para cada sugestão, forneça um 'title' (título), 'genre' (gênero) e uma 'shortDescription' (breve descrição). Responda apenas com um array JSON desses objetos.`;
       chatHistory.push({ role: "user", parts: [{ text: prompt }] });
 
       const geminiPayload = {

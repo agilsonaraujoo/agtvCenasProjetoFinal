@@ -1,7 +1,7 @@
 export const faqs = [
   {
     question: "O que é AGTV e como funciona?",
-    answer: "AGTV é um serviço que permite assistir a canais de TV ao vivo e conteúdo sob demanda pela internet. Diferente da TV a cabo, o IPTV usa a conexão de internet para transmitir programas diretamente no seu dispositivo, como uma Smart TV, celular, tablet ou computador."
+    answer: "AGTV é um serviço que permite assistir a canais de TV ao vivo e conteúdo sob demanda pela internet. Diferente da TV a cabo, o AGTV usa a conexão de internet para transmitir programas diretamente no seu dispositivo, como uma Smart TV, celular, tablet ou computador."
   },
   {
     question: "Preciso de uma internet muito rápida para usar?",
@@ -9,7 +9,7 @@ export const faqs = [
   },
   {
     question: "Posso usar o serviço em mais de um dispositivo?",
-    answer: "Sim, em geral, é possível usar o o IPTV em mais de um dispositivo, mas isso depende do plano contratado. Verifique com nossa equipe sobre a quantidade de acessos simultâneos permitidos no seu pacote."
+    answer: "Sim, em geral, é possível usar o AGTV em mais de um dispositivo, mas isso depende do plano contratado. Verifique com nossa equipe sobre a quantidade de acessos simultâneos permitidos no seu pacote."
   },
   {
     question: "O serviço é legal?",
