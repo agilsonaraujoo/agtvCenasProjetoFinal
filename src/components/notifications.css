@@ -21,9 +21,9 @@
 }
 
 .notification-container {
-  animation: slideInFromRight 3s ease-out forwards;
+  animation: slideInFromRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
 
 .notification-container.hide {
-  animation: slideOutToRight 3s ease-out forwards;
+  animation: slideOutToRight 0.3s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }

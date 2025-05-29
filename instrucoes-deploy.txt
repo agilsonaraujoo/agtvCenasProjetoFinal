@@ -1,21 +1,18 @@
-﻿InstruÃ§Ãµes de Deploy para HostGator:
+﻿
+=== INSTRUÃ‡Ã•ES DE DEPLOY HOSTGATOR ===
 
-1. FaÃ§a login no seu painel de controle do HostGator
-2. Procure por "File Manager" (Gerenciador de Arquivos)
-3. Navegue atÃ© a pasta public_html (ou o diretÃ³rio do seu domÃ­nio)
-4. FaÃ§a upload do arquivo "deploy-hostgator.zip"
-5. Extraia o arquivo zip na pasta correta
-6. Verifique se o arquivo [.htaccess](cci:7://file:///a:/ProjetoAgtvCenas/.htaccess:0:0-0:0) estÃ¡ na raiz do domÃ­nio
-7. Limpe o cache do navegador
-8. Acesse seu site para verificar se estÃ¡ funcionando
+1. Acesse o painel de controle do HostGator
+2. VÃ¡ em 'File Manager' (Gerenciador de Arquivos)
+3. Navegue atÃ© a pasta 'public_html' (ou a pasta do seu domÃ­nio)
+4. FaÃ§a upload do arquivo 'deploy-agtv.zip'
+5. Extraia o conteÃºdo do ZIP na pasta atual
+6. Verifique se o arquivo .htaccess estÃ¡ na raiz
+7. Acesse seu site para testar
 
-Arquivos importantes:
-- index.html (pÃ¡gina principal)
-- static/ (pasta com css, js e mÃ­dia)
-- .htaccess (necessÃ¡rio para o React Router)
+Dicas importantes:
+- O arquivo .htaccess jÃ¡ estÃ¡ configurado para roteamento SPA
+- Certifique-se de que o PHP esteja na versÃ£o 7.4 ou superior
+- Em caso de erros, limpe o cache do navegador
 
-Se o site nÃ£o estiver funcionando:
-1. Verifique se o arquivo [.htaccess](cci:7://file:///a:/ProjetoAgtvCenas/.htaccess:0:0-0:0) estÃ¡ na raiz do domÃ­nio
-2. Verifique se todos os arquivos da pasta static/ foram extraÃ­dos corretamente
-3. Limpe o cache do navegador
-4. Verifique se o servidor tem suporte a mod_rewrite
+Arquivo de deploy gerado: deploy-agtv.zip
+Tamanho: 7.15 MB

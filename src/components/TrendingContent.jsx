@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { API_CONFIG } from '../utils/api';
 
 const TrendingContent = () => {
@@ -15,7 +15,7 @@ const TrendingContent = () => {
   // Para produção, esta chave deve ser segura no servidor.
 const TMDB_API_KEY = API_CONFIG.TMDB.API_KEY;
 
-  const animateScroll = (timestamp) => {
+  const animateScroll = useCallback((timestamp) => {
     if (!lastScrollTimeRef.current) {
       lastScrollTimeRef.current = timestamp;
     }
@@ -33,22 +33,22 @@ const TMDB_API_KEY = API_CONFIG.TMDB.API_KEY;
       }
     }
     scrollAnimationRef.current = requestAnimationFrame(animateScroll);
-  };
+  }, [scrollContainerRef, isInteractingRef, scrollSpeed, scrollAnimationRef]);
 
-  const startAutoScroll = () => {
+  const stopAutoScroll = useCallback(() => {
+    if (scrollAnimationRef.current) {
+      cancelAnimationFrame(scrollAnimationRef.current);
+      scrollAnimationRef.current = null;
+    }
+  }, [scrollAnimationRef]);
+
+  const startAutoScroll = useCallback(() => {
     if (scrollContainerRef.current) {
       stopAutoScroll();
       lastScrollTimeRef.current = 0;
       scrollAnimationRef.current = requestAnimationFrame(animateScroll);
     }
-  };
-
-  const stopAutoScroll = () => {
-    if (scrollAnimationRef.current) {
-      cancelAnimationFrame(scrollAnimationRef.current);
-      scrollAnimationRef.current = null;
-    }
-  };
+  }, [scrollContainerRef, scrollAnimationRef]);
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -87,13 +87,13 @@ const TMDB_API_KEY = API_CONFIG.TMDB.API_KEY;
     return () => {
       stopAutoScroll();
     };
-  }, [TMDB_API_KEY]);
+  }, [TMDB_API_KEY, stopAutoScroll]);
 
   useEffect(() => {
     if (trendingItems.length > 0 && !loading && !error) {
       startAutoScroll();
     }
-  }, [trendingItems, loading, error]);
+  }, [trendingItems, loading, error, startAutoScroll]);
 
   const handleInteractionStart = () => {
     isInteractingRef.current = true;

@@ -1,6 +1,5 @@
 import React from 'react';
 import { FaTv, FaHeadphones, FaShieldAlt } from 'react-icons/fa';
-import { FiSettings } from 'react-icons/fi';
 
 const Features = () => {
   return (

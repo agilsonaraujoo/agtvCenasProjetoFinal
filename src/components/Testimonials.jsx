@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { testimonials } from '../data/testimonials';
 
 import { FaStar } from 'react-icons/fa';
@@ -16,6 +16,7 @@ const Testimonials = () => {
   const scrollContainerRef = useRef(null);
   const scrollAnimationRef = useRef(null);
   const lastScrollTimeRef = useRef(0);
+
   const scrollSpeed = 0.05;
   const isInteractingRef = useRef(false);
 
@@ -70,7 +71,7 @@ const Testimonials = () => {
   useEffect(() => {
     startAutoScroll();
     return () => stopAutoScroll();
-  }, []);
+  }, [startAutoScroll]);
 
   return (
     <section className="py-20">
@@ -129,6 +130,7 @@ const Testimonials = () => {
                       <div className="relative">
                         <img
                           src={`/images/${testimonial.image}`}
+                          alt={`${testimonial.name} - ${testimonial.role}`}
                           className="w-24 h-24 rounded-full border-2 border-white mr-4 shadow-xl object-cover"
                           onError={(e) => {
                             e.currentTarget.src = '/images/default-avatar.jpeg';

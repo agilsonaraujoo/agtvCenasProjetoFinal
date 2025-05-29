@@ -1,75 +1,81 @@
 import React, { useState, useEffect } from 'react';
-import { FaCookieBite } from 'react-icons/fa';
+import { FaCookieBite, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 import './cookieBanner.css';
 
 const CookieBanner = () => {
-  const [showBanner, setShowBanner] = useState(true);
-  const [showNotifications, setShowNotifications] = useState(true);
+  const [isExpanded, setIsExpanded] = useState(false);
   const [isHiding, setIsHiding] = useState(false);
+  const [showBanner, setShowBanner] = useState(false);
+  const [bannerClosed, setBannerClosed] = useState(true);
 
+  // Verifica se o banner já foi aceito/rejeitado
   useEffect(() => {
-    // Sempre mostra o banner quando a página é carregada
-    setShowBanner(true);
-    // Reativa as notificações
-    setShowNotifications(true);
-    // Remove os estados de cookies do localStorage
-    localStorage.removeItem('cookiesAccepted');
-    localStorage.removeItem('cookiesRejected');
-    localStorage.removeItem('showNotifications');
+    const bannerStatus = localStorage.getItem('cookieBannerClosed');
+    setBannerClosed(bannerStatus === 'true');
   }, []);
 
+  // Função para aceitar
+  const handleAccept = (e) => {
+    e.stopPropagation();
+    localStorage.setItem('cookieBannerClosed', 'true');
+    setIsHiding(true);
+    setTimeout(() => setShowBanner(false), 300);
+  };
+
+  // Função para rejeitar
+  const handleReject = (e) => {
+    e.stopPropagation();
+    localStorage.setItem('cookieBannerClosed', 'true');
+    setIsHiding(true);
+    setTimeout(() => setShowBanner(false), 300);
+  };
+
+  // Mostra o banner após o carregamento da página
   useEffect(() => {
-    if (!showBanner) {
-      setIsHiding(true);
-      // Aguarda a animação terminar antes de remover o elemento
-      setTimeout(() => {
-        setIsHiding(false);
-      }, 2000);
+    if (typeof window !== 'undefined') {
+      const pageReloaded = sessionStorage.getItem('pageReloaded') === 'true';
+      if (!pageReloaded) {
+        sessionStorage.setItem('pageReloaded', 'true');
+        const timer = setTimeout(() => {
+          setShowBanner(true);
+          setBannerClosed(false);
+        }, 1000);
+        return () => clearTimeout(timer);
+      } else if (!bannerClosed) {
+        setShowBanner(true);
+      }
     }
-  }, [showBanner]);
+  }, [bannerClosed]);
 
-  const handleAccept = () => {
-    localStorage.setItem('cookiesAccepted', 'true');
-    setShowBanner(false);
-    // Mantém as notificações ativadas
-    localStorage.setItem('showNotifications', 'true');
+  // Se o banner já foi fechado, não mostra
+  if (bannerClosed) {
+    return null;
+  }
+
+  const toggleExpand = () => {
+    setIsExpanded(!isExpanded);
   };
-
-  const handleReject = () => {
-    localStorage.setItem('cookiesRejected', 'true');
-    setShowBanner(false);
-    // Desativa as notificações
-    localStorage.setItem('showNotifications', 'false');
-  };
-
-  if (!showBanner) return null;
 
   return (
-    <div 
-      className={`fixed bottom-0 left-0 right-0 z-50 bg-gray-900 bg-opacity-95 backdrop-blur-sm p-4 ${isHiding ? 'cookie-banner hiding' : 'cookie-banner'}`}
-    >
-      <div className="max-w-4xl mx-auto">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
-            <FaCookieBite className="text-yellow-400" size={24} />
-            <div>
-              <h3 className="text-sm font-medium text-white">Usamos Cookies</h3>
-              <p className="text-xs text-gray-400">
-                Este site usa cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa política de cookies.
-              </p>
-            </div>
+    <div className={`cookie-banner ${isExpanded ? 'expanded' : ''} ${isHiding ? 'hiding' : ''}`}>
+      <div className="cookie-banner-content">
+        <div className="cookie-banner-header" onClick={toggleExpand}>
+          <div className="cookie-banner-text">
+            <FaCookieBite className="text-yellow-400" size={18} />
+            <span>Usamos cookies</span>
+            {isExpanded ? <FaChevronUp size={14} /> : <FaChevronDown size={14} />}
           </div>
-          <div className="flex space-x-3">
-            <button
-              onClick={handleReject}
-              className="px-4 py-2 text-sm text-gray-400 hover:text-white transition-colors"
-            >
+        </div>
+        
+        <div className="cookie-banner-message-container">
+          <p className="cookie-banner-message">
+            Este site usa cookies para melhorar sua experiência. Ao continuar navegando, você concorda com nossa política de cookies.
+          </p>
+          <div className="cookie-banner-buttons">
+            <button className="cookie-banner-button reject" onClick={handleReject}>
               Rejeitar
             </button>
-            <button
-              onClick={handleAccept}
-              className="px-6 py-2 text-sm text-white bg-blue-500 rounded hover:bg-blue-600 transition-colors"
-            >
+            <button className="cookie-banner-button accept" onClick={handleAccept}>
               Aceitar
             </button>
           </div>

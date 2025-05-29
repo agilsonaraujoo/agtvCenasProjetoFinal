@@ -23,19 +23,25 @@ const NewSubscriptionPopup = () => {
     }
   }, []);
 
+  // Removido o useEffect que estava causando duplicatas
+  // Mantendo apenas a lógica de scroll para mostrar as notificações
+  // A lógica de controle de nomes mostrados e progresso está no showNextNotification
+
   // Função para mostrar nova notificação
   const showNextNotification = () => {
     if (!showNotifications || isManuallyClosed) return;
     
-    // Verifica se o nome já foi mostrado
+    // Verifica se já existe um popup sendo mostrado
+    if (showPopup) return;
+
+    // Verifica se o nome já foi mostrado nesta sessão
     const newSubscription = getNewSubscription();
     if (shownNames.has(newSubscription.name)) {
-      // Se já foi mostrado, pula para a próxima notificação
-      setTimeout(showNextNotification, 1000);
+      // Se já foi mostrado nesta sessão, não mostra mais
       return;
     }
-    
-    // Adiciona o nome à lista de mostrados
+
+    // Adiciona o nome à lista de mostrados nesta sessão
     setShownNames(prev => new Set([...prev, newSubscription.name]));
     setSubscription(newSubscription);
     setShowPopup(true);
@@ -51,10 +57,7 @@ const NewSubscriptionPopup = () => {
       let currentProgress = 100;
       
       const animateProgress = () => {
-        if (!isAnimating) {
-          setIsAnimating(true);
-        }
-        
+        // Não verifica mais o isAnimating
         const elapsed = Date.now() - startTime;
         currentProgress = Math.max(0, 100 - (elapsed / 1000) * 10);
         
@@ -80,6 +83,8 @@ const NewSubscriptionPopup = () => {
         // Espera 3 segundos para a animação de saída
         setTimeout(() => {
           setShowPopup(false);
+          // Limpa o nome mostrado desta sessão
+          setShownNames(new Set());
           // Espera mais 6 segundos antes de mostrar a próxima notificação
           setTimeout(showNextNotification, 30000); // Aumentando para 30 segundos
         }, 3000);
@@ -116,30 +121,9 @@ const NewSubscriptionPopup = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, [showPopup, lastShown, isManuallyClosed]);
 
-  useEffect(() => {
-    // Adiciona listeners para mousemove
-    const handleMouseMove = () => {
-      if (showPopup && !isAnimating) {
-        setIsAnimating(true);
-      }
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, [showPopup]);
-
-  // Limpa o estado quando o componente é desmontado
-  useEffect(() => {
-    return () => {
-      setIsManuallyClosed(false);
-      setShowNotifications(true);
-    };
-  }, []);
-
-  if (!showPopup || !subscription) return null;
+  // Removido o useEffect de mousemove que estava causando duplicatas
+  // O popup agora só será mostrado através do scroll na seção de planos
+  // e respeitando o intervalo de 30 segundos entre as notificações
 
   const handleClose = () => {
     // Desabilita as notificações permanentemente
@@ -155,42 +139,54 @@ const NewSubscriptionPopup = () => {
     }, 3000);
   };
 
+  // Limpa o estado quando o componente é desmontado
+  useEffect(() => {
+    return () => {
+      setIsManuallyClosed(false);
+      setShowNotifications(true);
+    };
+  }, []);
+
   return (
-    <div 
-      className={`fixed bottom-4 right-4 z-50 w-64 bg-gray-900 bg-opacity-90 rounded-lg shadow-lg p-3 notification-container ${isHiding ? 'hide' : ''}`}
-      style={{ 
-        backdropFilter: 'blur(8px)',
-        WebkitBackdropFilter: 'blur(8px)',
-        width: '24rem',
-        maxWidth: '90vw'
-      }}
-      ref={popupRef}
-    >
-      <div className="flex items-center space-x-2">
-        <div className="text-blue-500">
-          <FaBell size={16} />
-        </div>
-        <div>
-          <p className="text-xs text-gray-400">Novo Assinante!</p>
-          <p className="text-sm font-semibold text-white">{subscription.name} {subscription.message}</p>
-          <p className="text-xs text-blue-400">Plano {subscription.plan}</p>
-          <div className="mt-2">
+    <>
+      {showPopup && subscription && (
+        <div 
+          className={`fixed bottom-4 right-4 z-50 w-64 bg-gray-900 bg-opacity-90 rounded-lg shadow-lg p-3 notification-container ${isHiding ? 'hide' : ''}`}
+          style={{ 
+            backdropFilter: 'blur(8px)',
+            WebkitBackdropFilter: 'blur(8px)',
+            width: '24rem',
+            maxWidth: '90vw'
+          }}
+          ref={popupRef}
+        >
+          <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <div className="w-full bg-gray-700 rounded-full h-1">
-                <div className="bg-blue-500 h-1 rounded-full transition-all duration-10000" style={{ width: `${progress}%` }}></div>
+              <div className="text-blue-500">
+                <FaBell size={16} />
+              </div>
+              <div className="ml-2">
+                <p className="text-xs text-gray-400">Novo Assinante!</p>
+                <p className="text-sm font-semibold text-white">{subscription.name} {subscription.message}</p>
+                <p className="text-xs text-blue-400">Plano {subscription.plan}</p>
+                <div className="mt-2">
+                  <div className="w-full bg-gray-700 rounded-full h-1">
+                    <div className="bg-blue-500 h-1 rounded-full transition-all duration-10000" style={{ width: `${progress}%` }}></div>
+                  </div>
+                </div>
               </div>
             </div>
+            <button 
+              onClick={handleClose}
+              className="text-gray-400 hover:text-white p-1 rounded-full hover:bg-gray-700 transition-colors"
+              aria-label="Fechar notificação"
+            >
+              <FaTimes size={16} />
+            </button>
           </div>
         </div>
-        <button 
-          onClick={handleClose}
-          className="text-gray-400 hover:text-white p-1 rounded-full hover:bg-gray-700 transition-colors"
-          aria-label="Fechar notificação"
-        >
-          <FaTimes size={16} />
-        </button>
-      </div>
-    </div>
+      )}
+    </>
   );
 };
 
