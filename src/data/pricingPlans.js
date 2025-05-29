@@ -53,12 +53,9 @@ export const plans = [
       "Qualidade HD/Full HD/4K",
       "Filmes e Séries On Demand",
       "Suporte Técnico 7 Dias por Semana",
+      "Maior Desconto"
     ],
-    highlight: {
-      text: "SUPER PROMO",
-      color: "bg-green-500 text-white"
-    },
-    isPopular: true,
+    isPopular: false,
     paymentUrl: "https://loja.infinitepay.io/agtv_streaming/wox2479-agtv-plano-anual"
   }
 ];

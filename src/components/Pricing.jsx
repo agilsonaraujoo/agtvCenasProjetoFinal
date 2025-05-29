@@ -28,11 +28,10 @@ const Pricing = () => {
             key={index}
             className={`bg-gray-800 rounded-lg shadow-xl p-8 flex flex-col plan-card relative ${plan.name === 'Anual' ? 'border-2 border-purple-500' : ''} fade-in-up delay-${index + 3}`}
           >
-            {plan.isPopular && (
+            {plan.name === 'Anual' ? (
+              <span className="absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">SUPER PROMO</span>
+            ) : plan.isPopular && (
               <span className="absolute top-0 right-0 bg-yellow-500 text-gray-900 text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg">POPULAR</span>
-            )}
-            {plan.highlight && (
-              <span className={`absolute top-0 right-0 bg-purple-500 text-white text-xs font-bold px-3 py-1 rounded-bl-lg rounded-tr-lg`}>{plan.highlight.text}</span>
             )}
 
             <h3 className="text-2xl font-bold text-indigo-400 mb-4">{plan.name}</h3>
@@ -50,6 +49,7 @@ const Pricing = () => {
                 </li>
               ))}
             </ul>
+
             <a href={plan.paymentUrl} target="_blank" rel="noopener noreferrer" className="mt-auto block bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-300 text-center">
               Assinar Agora!
             </a>

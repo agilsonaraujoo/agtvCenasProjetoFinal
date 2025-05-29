@@ -1,16 +1,19 @@
-import { maleNames, femaleNames, maleLastNames, femaleLastNames, usedNames } from './testimonials';
-
+// Função para gerar nomes únicos
 const generateUniqueName = (gender) => {
-  const names = gender === 'male' ? maleNames : femaleNames;
-  const lastNames = gender === 'male' ? maleLastNames : femaleLastNames;
+  const names = {
+    male: ['João', 'Carlos', 'Pedro', 'Lucas', 'Rafael'],
+    female: ['Maria', 'Ana', 'Isabela', 'Juliana', 'Larissa']
+  };
   
-  let name;
-  do {
-    name = `${names[Math.floor(Math.random() * names.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`;
-  } while (usedNames.has(name));
+  const lastNames = {
+    male: ['Silva', 'Oliveira', 'Pereira', 'Lima', 'Rocha'],
+    female: ['Santos', 'Ferreira', 'Souza', 'Costa', 'Ribeiro']
+  };
+
+  const firstName = names[gender][Math.floor(Math.random() * names[gender].length)];
+  const lastName = lastNames[gender][Math.floor(Math.random() * lastNames[gender].length)];
   
-  usedNames.add(name);
-  return name;
+  return `${firstName} ${lastName}`;
 };
 
 export const subscriptionMessages = [
@@ -18,91 +21,91 @@ export const subscriptionMessages = [
     id: 1,
     name: generateUniqueName('female'),
     plan: "Mensal",
-    message: "acabou de assinar o plano Mensal e já está aproveitando todos os conteúdos!"
+    message: "acabou de assinar o plano Mensal por R$34,90"
   },
   {
     id: 2,
     name: generateUniqueName('male'),
     plan: "Trimestral",
-    message: "acabou de assinar o plano Trimestral e já está economizando!"
+    message: "acabou de assinar o plano Trimestral por R$99,90"
   },
   {
     id: 3,
     name: generateUniqueName('female'),
     plan: "Semestral",
-    message: "acabou de assinar o plano Semestral e já está aproveitando o melhor custo-benefício!"
+    message: "acabou de assinar o plano Semestral por R$179,90"
   },
   {
     id: 4,
     name: generateUniqueName('male'),
     plan: "Anual",
-    message: "acabou de assinar o plano Anual e já está aproveitando o maior desconto!"
+    message: "acabou de assinar o plano Anual por R$259,90"
   },
   {
     id: 5,
     name: generateUniqueName('female'),
     plan: "Mensal",
-    message: "acabou de assinar o plano Mensal e já está assistindo seus filmes favoritos!"
+    message: "acabou de assinar o plano Mensal por R$34,90"
   },
   {
     id: 6,
     name: generateUniqueName('male'),
     plan: "Trimestral",
-    message: "acabou de assinar o plano Trimestral e já está aproveitando a qualidade HD/4K!"
+    message: "acabou de assinar o plano Trimestral por R$99,90"
   },
   {
     id: 7,
     name: generateUniqueName('female'),
-    plan: "Família",
-    message: "acabou de assinar o plano Família e toda a família já está assistindo!"
+    plan: "Mensal",
+    message: "acabou de assinar o plano Mensal por R$34,90"
   },
   {
     id: 8,
     name: generateUniqueName('male'),
-    plan: "Plus",
-    message: "acabou de assinar o plano Plus e já está aproveitando os conteúdos em 4K!"
+    plan: "Anual",
+    message: "acabou de assinar o plano Anual por R$259,90"
   },
   {
     id: 9,
     name: generateUniqueName('female'),
-    plan: "Básico",
-    message: "acabou de assinar o plano Básico e já está assistindo seus canais favoritos!"
+    plan: "Trimestral",
+    message: "acabou de assinar o plano Trimestral por R$99,90"
   },
   {
     id: 10,
     name: generateUniqueName('male'),
-    plan: "VIP",
-    message: "acabou de assinar o plano VIP e já está aproveitando todos os benefícios!"
+    plan: "Semestral",
+    message: "acabou de assinar o plano Semestral por R$179,90"
   },
   {
     id: 11,
     name: generateUniqueName('female'),
-    plan: "Premium",
-    message: "acabou de assinar o plano Premium e já está assistindo seus filmes favoritos!"
+    plan: "Mensal",
+    message: "acabou de assinar o plano Mensal por R$34,90"
   },
   {
     id: 12,
     name: generateUniqueName('male'),
-    plan: "Família",
-    message: "acabou de assinar o plano Família e toda a família já está assistindo!"
+    plan: "Anual",
+    message: "acabou de assinar o plano Anual por R$259,90"
   },
   {
     id: 13,
     name: generateUniqueName('female'),
-    plan: "Plus",
-    message: "acabou de assinar o plano Plus e já está aproveitando os conteúdos em 4K!"
+    plan: "Mensal",
+    message: "acabou de assinar o plano Mensal por R$34,90"
   },
   {
     id: 14,
     name: generateUniqueName('male'),
-    plan: "Básico",
-    message: "acabou de assinar o plano Básico e já está assistindo seus canais favoritos!"
+    plan: "Trimestral",
+    message: "acabou de assinar o plano Trimestral por R$99,90"
   },
   {
     id: 15,
     name: generateUniqueName('female'),
-    plan: "VIP",
-    message: "acabou de assinar o plano VIP e já está aproveitando todos os benefícios!"
+    plan: "Semestral",
+    message: "acabou de assinar o plano Semestral por R$179,90"
   }
 ];
 

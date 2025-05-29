@@ -13,6 +13,7 @@ const NewSubscriptionPopup = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [showNotifications, setShowNotifications] = useState(true);
   const [shownNames, setShownNames] = useState(new Set());
+  const [isManuallyClosed, setIsManuallyClosed] = useState(false);
 
   useEffect(() => {
     // Atualiza o estado das notificações quando mudar no localStorage
@@ -24,7 +25,7 @@ const NewSubscriptionPopup = () => {
 
   // Função para mostrar nova notificação
   const showNextNotification = () => {
-    if (!showNotifications) return;
+    if (!showNotifications || isManuallyClosed) return;
     
     // Verifica se o nome já foi mostrado
     const newSubscription = getNewSubscription();
@@ -99,33 +100,44 @@ const NewSubscriptionPopup = () => {
       if (pricingSection) {
         const rect = pricingSection.getBoundingClientRect();
         if (rect.top <= window.innerHeight && rect.bottom >= 0) {
-          // Mostrar popup quando chegar na seção de planos
-          if (!showPopup) {
+          // Se o usuário já tiver fechado manualmente, não mostra mais
+          if (isManuallyClosed) return;
+          
+          // Se já não estiver mostrando e já tiver passado 3 segundos desde o último
+          if (!showPopup && (!lastShown || Date.now() - lastShown >= 3000)) {
+            setLastShown(Date.now());
             showNextNotification();
           }
         }
       }
     };
 
-    // Adiciona listeners para scroll e mousemove
-    // Armazena as funções de callback
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [showPopup, lastShown, isManuallyClosed]);
+
+  useEffect(() => {
+    // Adiciona listeners para mousemove
     const handleMouseMove = () => {
       if (showPopup && !isAnimating) {
         setIsAnimating(true);
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
     window.addEventListener('mousemove', handleMouseMove);
 
     return () => {
-      window.removeEventListener('scroll', handleScroll);
       window.removeEventListener('mousemove', handleMouseMove);
-      // Limpa qualquer timer pendente
-      const currentTimer = setTimeout(() => {});
-      clearTimeout(currentTimer);
     };
   }, [showPopup]);
+
+  // Limpa o estado quando o componente é desmontado
+  useEffect(() => {
+    return () => {
+      setIsManuallyClosed(false);
+      setShowNotifications(true);
+    };
+  }, []);
 
   if (!showPopup || !subscription) return null;
 
