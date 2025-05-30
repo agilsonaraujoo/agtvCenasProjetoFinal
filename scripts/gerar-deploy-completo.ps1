@@ -1,9 +1,20 @@
 # Script para gerar um pacote de deploy completo para a HostGator
 
-# 1. Limpar builds anteriores
+# 1. Configurações iniciais
+$deployFolder = "..\deploy-archives"
+$timestamp = Get-Date -Format "yyyyMMddHHmmss"
+$zipFileName = "deployV2_$timestamp.zip"
+$zipPath = Join-Path $deployFolder $zipFileName
+
+# Criar pasta de deploys se não existir
+if (-not (Test-Path $deployFolder)) {
+    New-Item -ItemType Directory -Path $deployFolder | Out-Null
+}
+
+# Limpar builds anteriores
 Write-Host "Limpando builds anteriores..." -ForegroundColor Cyan
 Remove-Item -Recurse -Force .\build -ErrorAction SilentlyContinue
-Remove-Item -Force .\deployV2.zip -ErrorAction SilentlyContinue
+Remove-Item -Force "$deployFolder\deployV2_*.zip" -ErrorAction SilentlyContinue
 
 # 2. Instalar dependências
 Write-Host "Instalando dependências..." -ForegroundColor Cyan
@@ -71,12 +82,15 @@ foreach ($file in $requiredFiles) {
 
 # 6. Criar arquivo ZIP
 Write-Host "Criando arquivo ZIP de deploy..." -ForegroundColor Cyan
-$source = ".\build\*"
-$destination = ".\deployV2.zip"
+Write-Host "Arquivo será salvo em: $zipPath" -ForegroundColor Cyan
 
-if (Test-Path $destination) {
-    Remove-Item $destination
+# Garantir que a pasta de destino existe
+if (-not (Test-Path $deployFolder)) {
+    New-Item -ItemType Directory -Path $deployFolder | Out-Null
 }
+
+# Remover arquivos antigos
+Get-ChildItem -Path $deployFolder -Filter "deployV2_*.zip" | Remove-Item -Force
 
 Add-Type -Assembly System.IO.Compression.FileSystem
 [System.IO.Compression.ZipFile]::CreateFromDirectory(
@@ -87,16 +101,17 @@ Add-Type -Assembly System.IO.Compression.FileSystem
 )
 
 # 7. Verificar se o arquivo ZIP foi criado
-if (Test-Path $destination) {
-    $zipSize = (Get-Item $destination).Length / 1MB
+if (Test-Path $zipPath) {
+    $zipSize = (Get-Item $zipPath).Length / 1MB
     Write-Host "`nDeploy criado com sucesso!" -ForegroundColor Green
-    Write-Host "Arquivo: $((Get-Item $destination).FullName)" -ForegroundColor Green
+    Write-Host "Arquivo: $((Get-Item $zipPath).FullName)" -ForegroundColor Green
     Write-Host "Tamanho: {0:N2} MB" -f $zipSize -ForegroundColor Green
     
     Write-Host "`nPróximos passos:" -ForegroundColor Yellow
-    Write-Host "1. Faça upload do arquivo deployV2.zip para a HostGator"
-    Write-Host "2. Extraia o conteúdo na pasta public_html"
-    Write-Host "3. Certifique-se de que o .htaccess foi extraído corretamente"
+    Write-Host "1. Acesse a pasta: $((Get-Item $deployFolder).FullName)"
+    Write-Host "2. Faça upload do arquivo $zipFileName para a HostGator"
+    Write-Host "3. Extraia o conteúdo na pasta public_html"
+    Write-Host "4. Certifique-se de que o .htaccess foi extraído corretamente"
 } else {
     Write-Host "ERRO: Falha ao criar o arquivo ZIP" -ForegroundColor Red
     exit 1
