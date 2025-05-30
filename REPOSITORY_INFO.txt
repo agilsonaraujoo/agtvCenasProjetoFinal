@@ -1,0 +1,9 @@
+INFORMAÇÕES DO REPOSITÓRIO
+
+Nome: AGTV Cenas - Projeto Final
+URL: https://github.com/agilsonaraujoo/agtvCenasProjetoFinal.git
+
+INSTRUÇÕES:
+1. Sempre verifique este arquivo antes de fazer push
+2. Certifique-se de que está no repositório correto
+3. O repositório remoto está configurado como 'origin'

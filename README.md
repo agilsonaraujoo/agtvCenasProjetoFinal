@@ -1,51 +1,106 @@
-# Deploy do Site React no HostGator
+# 📺 AGTV - Plataforma de Streaming
 
-## Passo a Passo do Deploy
+## 🚀 Visão Geral
 
-### 1. Preparação Local
+A AGTV é uma plataforma de streaming moderna desenvolvida para oferecer uma experiência de usuário fluida e responsiva. Este documento descreve a arquitetura, tecnologias utilizadas e como as diferentes partes do sistema funcionam juntas.
 
-1. Faça a build do projeto:
-   ```bash
-   npm run build
-   ```
+## 🛠️ Tecnologias Utilizadas
 
-2. O arquivo `.htaccess` já foi criado na raiz do projeto e deve ser incluído no deploy.
+### Frontend
+- **React 18** - Biblioteca JavaScript para construção de interfaces
+- **React Router** - Navegação entre páginas
+- **Framer Motion** - Animações e transições suaves
+- **Tailwind CSS** - Framework CSS para estilização
+- **React Icons** - Ícones para a interface do usuário
 
-### 2. No Painel do HostGator
+### Ferramentas de Desenvolvimento
+- **Vite** - Build tool e servidor de desenvolvimento
+- **PostCSS** - Processamento de CSS
+- **ESLint** - Linter para manter a qualidade do código
+- **Prettier** - Formatador de código
 
-1. Faça login no seu painel de controle do HostGator
-2. Procure por "File Manager" (Gerenciador de Arquivos)
-3. Navegue até a pasta `public_html` (ou o diretório do seu domínio)
+### Hospedagem
+- **HostGator** - Hospedagem compartilhada
+- **Apache** - Servidor web
+- **HTTPS** - Certificado SSL para conexão segura
 
-### 3. Upload dos Arquivos
+## 🎯 Funcionalidades Principais
 
-1. Faça upload dos seguintes arquivos e pastas:
-   - Todo o conteúdo da pasta `build/`
-   - O arquivo `.htaccess`
+### 1. Interface do Usuário
+- Design responsivo que se adapta a diferentes tamanhos de tela
+- Navegação intuitiva com menu lateral retrátil
+- Animações suaves para melhor experiência do usuário
 
-2. A estrutura de pastas deve ficar assim no seu servidor:
-   ```
-   public_html/
-   ├── index.html
-   ├── .htaccess
-   └── static/
-       ├── css/
-       │   └── main.*.css
-       ├── js/
-       │   └── main.*.js
-       └── media/
-           └── (seus arquivos de mídia)
-   ```
+### 2. Player de Vídeo
+- Suporte a streaming de vídeo
+- Controles de reprodução personalizados
+- Modo tela cheia
 
-### 4. Verificação
+### 3. Gerenciamento de Conteúdo
+- Catálogo organizado por categorias
+- Destaques e recomendações
+- Busca de conteúdo
 
-1. Após o upload, limpe o cache do navegador
-2. Acesse seu site através do domínio configurado
-3. Verifique se todas as páginas estão funcionando corretamente
+## 🏗️ Estrutura do Código
 
-### 5. Atualização Futura
+### Componentes Principais
+- **Header.jsx** - Cabeçalho com navegação e busca
+- **VideoPlayer.jsx** - Player de vídeo personalizado
+- **ContentGrid.jsx** - Grade de exibição de conteúdo
+- **Sidebar.jsx** - Menu lateral de navegação
+- **Footer.jsx** - Rodapé com informações e links
 
-Para atualizar o site:
-1. Faça uma nova build local: `npm run build`
-2. Faça upload dos arquivos atualizados no servidor
-3. Limpe o cache do navegador
+### Rotas Principais
+- `/` - Página inicial com destaques
+- `/categoria/:id` - Lista de conteúdo por categoria
+- `/busca` - Resultados de busca
+- `/video/:id` - Página do vídeo
+
+## 🌐 Hospedagem e Deploy
+
+### Requisitos do Servidor
+- Node.js 14+
+- Servidor Apache com suporte a .htaccess
+- Suporte a PHP (para algumas funcionalidades)
+
+### Configuração Recomendada
+- **Memória**: 1GB RAM (mínimo)
+- **Armazenamento**: 10GB SSD
+- **Banda larga**: Ilimitada (recomendado)
+
+## 🔒 Segurança
+
+### Medidas Implementadas
+- Proteção contra XSS (Cross-Site Scripting)
+- Configurações de CORS adequadas
+- Headers de segurança HTTP
+- Proteção contra clickjacking
+
+## 📊 Performance
+
+### Otimizações
+- Carregamento preguiçoso (lazy loading) de imagens
+- Divisão de código (code splitting)
+- Cache de recursos estáticos
+- Compressão GZIP ativada
+
+## 📱 Compatibilidade
+
+### Navegadores Suportados
+- Google Chrome (últimas 2 versões)
+- Mozilla Firefox (últimas 2 versões)
+- Microsoft Edge (últimas 2 versões)
+- Safari (últimas 2 versões)
+
+### Dispositivos
+- Desktop (Windows, macOS, Linux)
+- Tablets (iOS, Android)
+- Smartphones (iOS, Android)
+
+## 📞 Suporte
+
+Para suporte técnico, entre em contato através do email: suporte@agtv.com
+
+---
+
+Desenvolvido com ❤️ pela Equipe AGTV

@@ -40,18 +40,14 @@ const Header = () => {
 
         <div className="hidden md:flex space-x-8">
           {menuItems.map((item) => (
-            <button
+            <a
               key={item.id}
+              href={item.href}
               className="text-lg font-medium text-gray-300 hover:text-white transition duration-300 flex items-center space-x-2 group"
-              onClick={() => {
-                if (item.onClick) {
-                  item.onClick();
-                }
-              }}
             >
               {item.icon}
               <span className="group-hover:translate-x-1 transition-transform duration-300">{item.text}</span>
-            </button>
+            </a>
           ))}
         </div>
 
